@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>주차 요금 결제</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-50 min-h-screen">
+<div class="container mx-auto px-4 py-8">
+    <!-- 헤더 -->
+    <div class="text-center mb-8">
+        <h1 class="text-3xl font-bold text-gray-800 mb-2">주차 요금 결제</h1>
+        <p class="text-gray-600">결제 정보를 확인해주세요</p>
+    </div>
+
+    <!-- 결제 정보 카드 -->
+    <div class="max-w-md mx-auto">
+        <div class="bg-white rounded-lg shadow-md overflow-hidden">
+            <!-- 차량 정보 헤더 -->
+            <div class="px-6 py-4 bg-blue-50 border-b">
+                <h2 class="text-xl font-semibold text-gray-800" th:text="${paymentInfo.carNumber}">차량번호</h2>
+            </div>
+
+            <!-- 결제 상세 정보 -->
+            <div class="px-6 py-6 space-y-4">
+                <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span class="text-gray-600">입차시간</span>
+                    <span class="font-medium" th:text="${paymentInfo.entryTime}">입차시간</span>
+                </div>
+
+                <div class="flex justify-between items-center py-2 border-b border-gray-100">
+                    <span class="text-gray-600">주차시간</span>
+                    <span class="font-medium" th:text="${paymentInfo.parkingDuration}">주차시간</span>
+                </div>
+
+                <div class="flex justify-between items-center py-3 bg-gray-50 rounded-lg px-4">
+                    <span class="text-lg font-semibold text-gray-800">총 결제금액</span>
+                    <span class="text-2xl font-bold text-red-600" th:text="${paymentInfo.amount + '원'}">${paymentInfo.amount}원</span>
+                </div>
+            </div>
+
+            <!-- 버튼 영역 -->
+            <div class="px-6 py-4 bg-gray-50 flex gap-3">
+                <button
+                        onclick="goBack()"
+                        class="flex-1 px-4 py-3 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors font-medium"
+                >
+                    이전으로
+                </button>
+                <button
+                        onclick="processPayment()"
+                        class="flex-1 px-4 py-3 bg-red-600 text-white rounded-md hover:bg-red-700 transition-colors font-medium"
+                >
+                    결제하기
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    // 이전 페이지로 돌아가기
+    function goBack() {
+        window.location.href = '/';
+    }
+
+    // 결제 처리
+    function processPayment() {
+        // 결제 확인 알림
+        if (confirm('결제를 진행하시겠습니까?')) {
+            // 결제 완료 알림
+            alert('결제가 완료되었습니다.');
+
+            // 메인 페이지로 이동
+            window.location.href = '/';
+        }
+    }
+</script>
+</body>
+</html>
